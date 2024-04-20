@@ -46,6 +46,9 @@ class ProviderChatGroq(Provider):
     def default_model(self):
         return CHAT_GROQ_DEFAULT_MODEL
 
+    def prepare_messages_method(self):
+        return self.prepare_messages_for_llm_chat
+
     def llm_factory(self):
         return CustomChatGroq
 
