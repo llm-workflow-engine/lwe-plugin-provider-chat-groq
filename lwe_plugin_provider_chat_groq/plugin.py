@@ -33,8 +33,12 @@ class ProviderChatGroq(Provider):
                 'mixtral-8x7b-32768': {
                     'max_tokens': 32768,
                 },
-
-
+                'llama3-8b-8192': {
+                    'max_tokens': 8192,
+                },
+                'llama3-70b-8192': {
+                    'max_tokens': 8192,
+                },
             }
         }
 
