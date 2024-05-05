@@ -1,3 +1,4 @@
+from groq import Groq
 from langchain_groq import ChatGroq
 
 from lwe.core.provider import Provider, PresetValue
@@ -18,28 +19,26 @@ class ProviderChatGroq(Provider):
     Access to Groq chat models.
     """
 
+    def __init__(self, config=None):
+        super().__init__(config)
+        self.show_inactive_models = self.config.get('plugins.provider_chat_groq.show_inactive_models', False)
+        self.models = self.config.get('plugins.provider_chat_groq.models') or self.fetch_models()
+
+    def fetch_models(self):
+        client = Groq()
+        try:
+            models_list = client.models.list()
+            models = {model.id: {'max_tokens': model.context_window} for model in models_list.data if (self.show_inactive_models or model.active)}
+            return models
+        except Exception as e:
+            raise ValueError(f"Could not retrieve models: {e}")
+
     @property
     def capabilities(self):
         return {
             "chat": True,
             'validate_models': True,
-            'models': {
-                'llama2-70b-4096': {
-                    'max_tokens': 4096,
-                },
-                'gemma-7b-it': {
-                    'max_tokens': 8192,
-                },
-                'mixtral-8x7b-32768': {
-                    'max_tokens': 32768,
-                },
-                'llama3-8b-8192': {
-                    'max_tokens': 8192,
-                },
-                'llama3-70b-8192': {
-                    'max_tokens': 8192,
-                },
-            }
+            'models': self.models,
         }
 
     @property

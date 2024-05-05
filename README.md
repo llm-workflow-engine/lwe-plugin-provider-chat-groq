@@ -38,6 +38,18 @@ plugins:
   enabled:
     - provider_chat_groq
     # Any other plugins you want enabled...
+  # THIS IS OPTIONAL -- By default the plugin loads all model data via an API
+  # call on startup. This does make startup time longer.
+  # You can instead provide a 'models' object here with the relevant data, and
+  # It will be used instead of an API call.
+  provider_chat_groq:
+    # Set to True to show inactive models.
+    show_inactive_models: False
+    models:
+      # 'id' parameter of the model as it appears in the API.
+      mixtral-8x7b-32768:
+        # The only parameter, and it's required.
+        max_tokens: 32768
 ```
 
 ## Usage
