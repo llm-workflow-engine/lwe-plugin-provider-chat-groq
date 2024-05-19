@@ -57,4 +57,6 @@ class ProviderChatGroq(Provider):
             'temperature': PresetValue(float, min_value=0.0, max_value=2.0),
             'max_tokens': PresetValue(int, include_none=True),
             'top_p': PresetValue(float, min_value=0.0, max_value=1.0),
+            "tools": None,
+            "tool_choice": None,
         }
