@@ -19,10 +19,9 @@ class ProviderChatGroq(Provider):
     Access to Groq chat models.
     """
 
-    def __init__(self, config=None):
-        super().__init__(config)
+    def __init__(self, config=None, **kwargs):
+        super().__init__(config, **kwargs)
         self.show_inactive_models = self.config.get('plugins.provider_chat_groq.show_inactive_models', False)
-        self.models = self.config.get('plugins.provider_chat_groq.models') or self.fetch_models()
 
     def fetch_models(self):
         client = Groq()
