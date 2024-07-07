@@ -37,7 +37,6 @@ class ProviderChatGroq(Provider):
         return {
             "chat": True,
             'validate_models': True,
-            'models': self.models,
         }
 
     @property
