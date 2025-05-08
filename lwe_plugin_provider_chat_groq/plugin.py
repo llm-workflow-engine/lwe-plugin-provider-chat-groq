@@ -1,12 +1,16 @@
 from groq import Groq
 from langchain_groq import ChatGroq
+from pydantic import Field
 
 from lwe.core.provider import Provider, PresetValue
 
-CHAT_GROQ_DEFAULT_MODEL = "mixtral-8x7b-32768"
+CHAT_GROQ_DEFAULT_MODEL = "llama3-8b-8192"
 
 
 class CustomChatGroq(ChatGroq):
+
+    model_name: str = Field(alias="model", default=CHAT_GROQ_DEFAULT_MODEL)
+    """Model name to use."""
 
     @property
     def _llm_type(self):
